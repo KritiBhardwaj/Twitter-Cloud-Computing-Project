@@ -1,5 +1,7 @@
 '''This is a sample test extraction utility using tweepy'''
 
+#The twitter API searches in the last 7 days only
+
 import tweepy
 consumer_key = "E50fbKWMtI5X914kL4kgfURvR"
 consumer_secret = "CLWbyVUb6b8fIMlodcpgH2jsl7Xal2qVOwGRjtYTYyVRKQTN90"
@@ -39,10 +41,13 @@ for tweet in results:
 #   print(" ")
 # #
 
+
+
 api = tweepy.API(auth)
-query = "crime"
+query = "Melbourne"
 language = "en"
-results = api.search(q=query,geocode='-37.800,144.960,5km')
+#results = api.search(q=query,geocode='-37.800,144.960,5km') #for results only in specific location
+results = api.search(q=query,lang = language)
 #print(len(api.search(geocode='-33.602131,-70.576876,100000km')))
 #results = api.search(q=query, lang=language, count=100, geocode='-37.760, 144.900,100km')
 for tweet in results:
