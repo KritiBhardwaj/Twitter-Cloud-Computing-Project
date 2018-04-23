@@ -1,5 +1,7 @@
 '''This is a sample test extraction utility using tweepy'''
 
+#The twitter API searches in the last 7 days only
+
 import tweepy
 consumer_key = "E50fbKWMtI5X914kL4kgfURvR"
 consumer_secret = "CLWbyVUb6b8fIMlodcpgH2jsl7Xal2qVOwGRjtYTYyVRKQTN90"
@@ -39,8 +41,9 @@ for tweet in results:
   print(" ")
 
 
+#For results in melbourne
 # api = tweepy.API(auth)
-# query = "C&CC module"
+# query = "Melbourne"
 # language = "en"
 # results = api.search(q=query,geocode='-37.800,144.960,50km')
 #
@@ -53,4 +56,3 @@ for tweet in results:
 #
 # #location grid for melbourne:
 # #
-

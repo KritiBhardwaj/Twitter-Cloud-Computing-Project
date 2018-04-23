@@ -1,0 +1,31 @@
+Umair:
+Consumer Key = "HnXTz4v9QCtjWvn7Tpb55SmOz"
+Consumer Secret = "xCd7VIrsQPrCCg1wsPrxNEvSfmUCSuI7HfTdwtthwcBmo1d4W2"
+
+Access Token = "62274863-7eVe1DtSb20jVf7bNLjO5RwlJRqRK0cjAmVRlVfgE"
+
+Access Token Secret = "FbOD05N6TK6wm6x4yGYXs923fX9xnzHUWoiFpkQ4bvNXc"
+
+Sergey:
+Consumer Key: Vb0cwOkSk6q5tfSfX04h9U23p
+
+Consumer Secret: 81aM2v0eZhJaA1ksFDicqf0piOidgShokCJudSWlKYVC5BCnI8
+
+Access Token: 987288793374900224-MlYHf4qwA7K3NfhnCEcLT3o3UeNJPLM
+
+Access Token Secret: CGXGboiACeSWPV4PRIXdnHskWAZJSv5d0zW6pwZQsH8zm
+
+Haaris:
+Consumer Key = "E50fbKWMtI5X914kL4kgfURvR"
+Consumer Secret = "CLWbyVUb6b8fIMlodcpgH2jsl7Xal2qVOwGRjtYTYyVRKQTN90"
+Access Token = "1301016800-qi6ql98SLPDHeNYPlw6jvhge0QVElGjoyffBeAH"
+Access Token Secret = "C6tQsacmOfcTPB8uOIor24u1ChUwuPyOPohhYkUzaSRDu"
+
+Kriti:
+Consumer key (API Key): zOSTodo9yO17cv0pBU9MbJmQ9
+
+Consumer Secret (API Secret): 8cYLBe9EDc9oNVkXbuLiE3nx6fcZhhfqCaMbwx5yHnqXawadqK
+
+Access Token: 949101970945490944-ytBXszR6zGY2xlrOmAEvOg3xGWeFhzs
+
+Access Token Secret: hXeSM9T2NXta3Q37tRFbeqxJu5iR5HlbfHjCIgtWDnLQf
