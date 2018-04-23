@@ -30,22 +30,27 @@ for tweet in results:
    print(" ")
 '''
 
-# api = tweepy.API(auth)
-# query = "UJamil"
-# results = api.search(q=query, count=100)
-# for tweet in results:
-#   print(tweet.user.screen_name,"Tweeted:",tweet.text)
-#   print("Location:" + tweet.user.location)
-#   print(" ")
-# #
-
 api = tweepy.API(auth)
-query = "crime"
-language = "en"
-results = api.search(q=query,geocode='-37.800,144.960,5km')
-#print(len(api.search(geocode='-33.602131,-70.576876,100000km')))
-#results = api.search(q=query, lang=language, count=100, geocode='-37.760, 144.900,100km')
+query = "UJamil"
+results = api.search(q=query, geocode='-37.800,144.960,10km')
 for tweet in results:
   print(tweet.user.screen_name,"Tweeted:",tweet.text)
   print("Location:" + tweet.user.location)
   print(" ")
+
+
+# api = tweepy.API(auth)
+# query = "C&CC module"
+# language = "en"
+# results = api.search(q=query,geocode='-37.800,144.960,50km')
+#
+# #print(len(api.search(geocode='-33.602131,-70.576876,100000km')))
+# #results = api.search(q=query, lang=language, count=100, geocode='-37.760, 144.900,100km')
+# for tweet in results:
+#   print(tweet.user.screen_name,"Tweeted:",tweet.text)
+#   print("Location:" + tweet.user.location)
+#   print(" ")
+#
+# #location grid for melbourne:
+# #
+
