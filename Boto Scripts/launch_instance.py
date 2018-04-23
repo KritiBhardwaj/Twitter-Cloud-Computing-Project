@@ -5,6 +5,8 @@ from nectar_connect import ec2_conn
 num_of_instances = 3
 # the type of the instance
 instance_type = "m2.tiny"
+# system image to launch (retrieved from 'list_images.py')
+system_image = 'ami-190a1773'
 
 reservation = ec2_conn.run_instances('ami-190a1773',
 	min_count=num_of_instances,
