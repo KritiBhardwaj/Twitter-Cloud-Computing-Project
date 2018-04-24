@@ -16,6 +16,18 @@ api = tweepy.API(auth)
 language = "en"
 count = 100
 
+suburbNames = {
+
+
+
+
+}
+
+suburbRadius = {
+
+
+}
+
 setOfKeywords = [
     "Anniversary",
     "Anniversaries",
