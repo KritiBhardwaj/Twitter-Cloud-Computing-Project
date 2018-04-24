@@ -16,6 +16,8 @@ api = tweepy.API(auth)
 language = "en"
 count = 100
 
+
+#Kriti Please Update
 suburbNames = {
 
 
@@ -23,6 +25,7 @@ suburbNames = {
 
 }
 
+#Kriti Please Update
 suburbRadius = {
 
 
