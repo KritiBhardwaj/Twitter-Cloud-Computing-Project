@@ -3,6 +3,7 @@
 
 import tweepy
 import os
+import json
 import preprocessor as p
 
 '''Helpers'''
@@ -14,6 +15,11 @@ def assure_path_exists(path):
     dir = os.path.dirname(path)
     if not os.path.exists(dir):
         os.makedirs(dir)
+
+
+oneSub = {
+'Camberwell':'10|-37.820|145.060',
+}
 
 #Suburb Details
 suburbNames = {
@@ -161,52 +167,52 @@ Consumer_Secret_Sergei = "81aM2v0eZhJaA1ksFDicqf0piOidgShokCJudSWlKYVC5BCnI8"
 Access_Token_Sergei = "987288793374900224-MlYHf4qwA7K3NfhnCEcLT3o3UeNJPLM"
 Access_Token_Secret_Sergei = "CGXGboiACeSWPV4PRIXdnHskWAZJSv5d0zW6pwZQsH8zm"
 
-auth = tweepy.OAuthHandler(Consumer_Key_Umair, Consumer_Secret_Umair)
-auth.set_access_token(Access_Token_Umair, Access_Token_Secret_Umair)
-api = tweepy.API(auth, wait_on_rate_limit=True)
+auth = tweepy.OAuthHandler(Consumer_key_Kriti, Consumer_Secret_Kriti)
+auth.set_access_token(Access_Token_Kriti, Access_Token_Secret_Kriti)
+api = tweepy.API(auth, wait_on_rate_limit=True, parser=tweepy.parsers.JSONParser())
 language = "en"
-count = 100
+count = 10
 
 
 p.set_options(p.OPT.URL, p.OPT.EMOJI, p.OPT.HASHTAG, p.OPT.MENTION, p.OPT.SMILEY)
-for subs in suburbNames:
+for subs in oneSub:
     path = 'suburb-tweets\\'+ subs + '\\'
     assure_path_exists(path)
-    tweetMessageFile = open(path + 'OriginalTweets.txt', 'w', encoding='utf8')
-    tweetFile = open(path + 'tweetsCleansed.txt', 'w', encoding='utf8')
-    tweetFileDetails = open(path + 'tweetsDetails.txt', 'w', encoding='utf8')
-    subDetails = suburbNames[subs].split('|')
+    #tweetMessageFile = open(path + 'OriginalTweets.txt', 'w', encoding='utf8')
+    #tweetFile = open(path + 'tweetsCleansed.txt', 'w', encoding='utf8')
+    #tweetFileDetails = open(path + 'tweetsDetails.txt', 'w', encoding='utf8')
+    subDetails = oneSub[subs].split('|')
     subradius = str(subDetails[0])
     sublat = str(subDetails[1])
     sublon = str(subDetails[2])
     geocode = sublat + ',' + sublon + ',' + subradius + 'km' #geocode format: '-37.800,144.960,70km'
 
     for elem in setOfKeywords:
-      results = api.search(q=elem, lang=language, count=500, geocode=geocode,tweet_mode='extended') #Melbourne
-
-      for tweet in results:
-        print(tweet)
-        parserTweet = p.parse(tweet.full_text)
-        tweetMessageFile.write(tweet.full_text + '\n')
-
-        cleansedTweet = p.clean(tweet.full_text)
-        tweetFile.write(cleansedTweet + '\n')
-
-        hashtags = str(parserTweet.hashtags)
-        emojis = str(parserTweet.emojis)
-        smileys = str(parserTweet.smileys)
-        mentions = str(parserTweet.mentions)
-        location = str(tweet.user.location)
-        tweetFileDetails.write("*********" + '\n')
-        tweetFileDetails.write(cleansedTweet + '\n')
-        tweetFileDetails.write("Hashtags: " + hashtags + '\n')
-        tweetFileDetails.write("Emojis: " + emojis + '\n')
-        tweetFileDetails.write("Smileys: " + smileys + '\n')
-        tweetFileDetails.write("Mentions: " + mentions + '\n')
-        tweetFileDetails.write("Location: " + location + '\n')
-    tweetMessageFile.close()
-    tweetFile.close()
-    tweetFileDetails.close()
+      results = api.search(q=elem, lang=language, count=count, geocode=geocode,tweet_mode='extended') #Melbourne
+      for tweet in results["statuses"]:
+              print(json.dumps(tweet))
+      # for tweet in results:
+    #     parserTweet = p.parse(tweet.full_text)
+    #     tweetMessageFile.write(tweet.full_text + '\n')
+    #
+    #     cleansedTweet = p.clean(tweet.full_text)
+    #     tweetFile.write(cleansedTweet + '\n')
+    #
+    #     hashtags = str(parserTweet.hashtags)
+    #     emojis = str(parserTweet.emojis)
+    #     smileys = str(parserTweet.smileys)
+    #     mentions = str(parserTweet.mentions)
+    #     location = str(tweet.user.location)
+    #     tweetFileDetails.write("*********" + '\n')
+    #     tweetFileDetails.write(cleansedTweet + '\n')
+    #     tweetFileDetails.write("Hashtags: " + hashtags + '\n')
+    #     tweetFileDetails.write("Emojis: " + emojis + '\n')
+    #     tweetFileDetails.write("Smileys: " + smileys + '\n')
+    #     tweetFileDetails.write("Mentions: " + mentions + '\n')
+    #     tweetFileDetails.write("Location: " + location + '\n')
+    # tweetMessageFile.close()
+    # tweetFile.close()
+    # tweetFileDetails.close()
 
 
 
