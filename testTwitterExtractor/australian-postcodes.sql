@@ -2,6 +2,9 @@
 Taken and cribbed from blog.datalicious.com/free-download-all-australian-postcodes-geocod
 
 May contain errors where latitude and longitude are off. Use at own non-validated risk.
+
+
+
 */
 
 SET NAMES utf8;
