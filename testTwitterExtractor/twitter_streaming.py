@@ -58,20 +58,20 @@ setOfKeywords = [
 ]
 
 class StdOutListener(StreamListener):
-    def on_status(self, status): #More elaborate tweet information
-        for elem in setOfKeywords:
-            if elem.lower() in status.text.lower():
-                print(status)
-                print(status.text)
-                print(status.user.location)
-                return True
+    # def on_status(self, status): #More elaborate tweet information
+    #     for elem in setOfKeywords:
+    #         if elem.lower() in status.text.lower():
+    #             print(status)
+    #             print(status.text)
+    #             print(status.user.location)
+    #             return True
 
     #Less elaborate tweet information
-    # def on_data(self, data):
-    #     for elem in setOfKeywords:
-    #         if elem.lower() in data.lower():
-    #             print(data)
-    #             return True
+    def on_data(self, data):
+        for elem in setOfKeywords:
+            if elem.lower() in data.lower():
+                print(data)
+                return True
     def on_error(self, status):
         print(status)
         return False
