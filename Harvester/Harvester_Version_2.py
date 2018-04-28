@@ -1,8 +1,10 @@
 import json
 from textblob import TextBlob
 import os
+import time
 import couchdb
 import preprocessor as p
+import tweepy
 from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
@@ -10,7 +12,7 @@ from shapely.geometry import shape, Point
 
 #Setting DB Details
 print("Hello, I am CouchDB!")
-couchserver = couchdb.Server("http://localhost:5984/")
+couchserver = couchdb.Server("http://115.146.95.134:5984/")
 dbname = "harvest"
 if dbname in couchserver:
     db = couchserver[dbname]
@@ -62,6 +64,40 @@ Access_Token_Secret_Sergei = "CGXGboiACeSWPV4PRIXdnHskWAZJSv5d0zW6pwZQsH8zm"
 tweetFile = open('screen3.json', 'a+', encoding='utf8')
 tweetFile.write("[")
 
+setOfKeywords = [
+        "Anniversary",
+        "Anniversaries",
+        "Birthday",
+        "Birthdays",
+        "Event",
+        "events",
+        "Kids",
+        "Wedding",
+        "weddings",
+        "Marriage",
+        "Husband",
+        "Wife",
+        "wife's",
+        "Couple",
+        "Couples",
+        "Grocery",
+        "Groceries",
+        "Shopping",
+        "Shoppings",
+        "Dinner",
+        "Dinners",
+        "Issues",
+        "Divorce",
+        "Divorces",
+        "Weekends",
+        "MarriedPeopleIssues",
+        "Married",
+        "MarriedIssues",
+        "MarriageIssues",
+        "UJamil",
+        "FridayNights",
+]
+
 
 def checkJson(jsonContents):
     codeFlag = True if "coordinates" in jsonContents else False
@@ -73,6 +109,8 @@ def staticVariableForKeys(value, keyName):
 staticVariableForKeys.A1 = 0
 	
 writeToFileDict={}
+
+
 
 class listener(StreamListener):
 
@@ -114,12 +152,71 @@ class listener(StreamListener):
                 writeToFileDict['suburb'] = thisSuburb
                 writeToFileDict['long'] = long
                 writeToFileDict['lat'] = lat
-                json_id=str(jsonTweet["id"])+"t"
+                writeToFileDict['screen_name'] = jsonTweet["user"]["screen_name"]
+                json_id=str(time.time())+"t"
                 #doc_id, doc_rev = db.save(writeToFileDict)
                 db[json_id] = writeToFileDict
-                writeLine = json.dumps(writeToFileDict, ensure_ascii=False)
-                writeLine += ","
-                tweetFile.write(writeLine)
+                #writeLine = json.dumps(writeToFileDict, ensure_ascii=False)
+                #writeLine += ","
+                #tweetFile.write(writeLine)
+                #tweet harvested, now get it's user and search its tweets!
+                name = jsonTweet["user"]["screen_name"]
+                tweetCount = 1000
+                print("-------------->Starting new user tweet fetch!")
+                for status in tweepy.Cursor(api.user_timeline, id=name, tweet_mode='extended').items(tweetCount):
+                    #print("-------------->2")
+                    writeToFileDict_u={}
+                    parsedTweet = json.loads(json.dumps(status._json))
+                    #print("-------------->3")
+                    if (str(parsedTweet['coordinates']) != 'None'):
+                        #print(print(parsedTweet))
+                        #print(parsedTweet["coordinates"])
+                        for elem in setOfKeywords: #if that specific word exists in the tweet, tag it
+                            #if(elem.lower() in parsedTweet["full_text"].lower()):
+                            if(1):
+                                count=0
+                                lat = 0
+                                long = 0
+                                for coordinates in parsedTweet["coordinates"]["coordinates"]:
+                                	count += 1
+                                	if (count == 1):
+                                		long = coordinates
+                                	# print(coordinates)
+                                	# print(tweet)
+                                	else:
+                                		lat = coordinates
+                                # print("Long/Lat: ",long," | ",lat)
+                                thisSuburb = checkWhichSuburb(long, lat)
+                                cleansedTweet = p.clean(parsedTweet['full_text'])
+                                #print("Tweet belongs to suburb: ", thisSuburb,"|",cleansedTweet)
+                                blob = TextBlob(cleansedTweet)
+                                # print("B: ", blob)
+                                if blob.sentiment.polarity < 0:
+                                	sentiment = "negative"
+                                elif blob.sentiment.polarity == 0:
+                                	sentiment = "neutral"
+                                else:
+                                	sentiment = "positive"
+                                # print("Orignal: ",parsedTweet['text'])
+                                # print("Cleansed: ",cleansedTweet)
+                                writeToFileDict_u['id_tweet'] = parsedTweet["id"]
+                                writeToFileDict_u['sentiment'] = sentiment
+                                writeToFileDict_u['tweet'] = cleansedTweet
+                                writeToFileDict_u['suburb'] = thisSuburb
+                                writeToFileDict_u['long'] = long
+                                writeToFileDict_u['lat'] = lat
+                                writeToFileDict_u['screen_name'] = parsedTweet["user"]["screen_name"]
+                                json_id_u=str(time.time())+"t"
+                                #doc_id, doc_rev = db.save(writeToFileDict)
+                                if (parsedTweet["id"]!=jsonTweet["id"]):
+                                    if(thisSuburb!='N/A'):
+                                        print("Tweet belongs to suburb: ", thisSuburb,"|",cleansedTweet)
+                                        staticVariableForKeys(1,"A1")
+                                        db[json_id_u] = writeToFileDict_u
+                                        print("Harvested Tweets: ",staticVariableForKeys.A1)
+                                    else:
+                                        print("Suburb belongs to N/A region: Long: ",long," | Lat: ",lat)
+                                break
                 staticVariableForKeys(1,"A1")
                 print("Harvested Tweets: ",staticVariableForKeys.A1)
 				
@@ -131,41 +228,45 @@ class listener(StreamListener):
     def on_error(self, status):
         print(status)
 
-auth = OAuthHandler(Consumer_key_Kriti, Consumer_Secret_Kriti)
-auth.set_access_token(Access_Token_Kriti, Access_Token_Secret_Kriti)
+auth = OAuthHandler(Consumer_Key_Sergei, Consumer_Secret_Sergei)
+auth.set_access_token(Access_Token_Sergei, Access_Token_Secret_Sergei)
+print("1-AuthAcquired")
+#auth2 = OAuthHandler(Consumer_Key_Sergei, Consumer_Secret_Sergei)
+#auth2.set_access_token(Access_Token_Sergei, Access_Token_Secret_Sergei)
+api = tweepy.API(auth, wait_on_rate_limit=True)
 
 twitterStream = Stream(auth, listener())
 twitterStream.filter(locations=[144.5937, -38.4339, 145.5125, -37.5113])  # Just Melbourne Australia gridbox
-twitterStream.filter(track=[
-    "Anniversary",
-        "Anniversaries",
-        "Birthday",
-        "Birthdays",
-        "Event",
-        "events",
-        "Kids",
-        "Wedding",
-        "weddings",
-        "Marriage",
-        "Husband",
-        "Wife",
-        "wife's",
-        "Couple",
-        "Couples",
-        "Grocery",
-        "Groceries",
-        "Shopping",
-        "Shoppings",
-        "Dinner",
-        "Dinners",
-        "Issues",
-        "Divorce",
-        "Divorces",
-        "Weekends",
-        "MarriedPeopleIssues",
-        "Married",
-        "MarriedIssues",
-        "MarriageIssues",
-        "UJamil",
-        "FridayNights",
-])
+#twitterStream.filter(track=[
+#    "Anniversary",
+#        "Anniversaries",
+#        "Birthday",
+#        "Birthdays",
+#        "Event",
+#        "events",
+#        "Kids",
+#        "Wedding",
+#        "weddings",
+#        "Marriage",
+#        "Husband",
+#        "Wife",
+#        "wife's",
+#        "Couple",
+#        "Couples",
+#        "Grocery",
+#        "Groceries",
+#        "Shopping",
+#        "Shoppings",
+#        "Dinner",
+#        "Dinners",
+#        "Issues",
+#        "Divorce",
+#        "Divorces",
+#        "Weekends",
+#        "MarriedPeopleIssues",
+#        "Married",
+#        "MarriedIssues",
+#        "MarriageIssues",
+#        "UJamil",
+#        "FridayNights",
+#])
