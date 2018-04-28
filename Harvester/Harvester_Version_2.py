@@ -10,6 +10,7 @@ from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 from shapely.geometry import shape, Point
 
+creds=1
 #Setting DB Details
 print("Hello, I am CouchDB!")
 couchserver = couchdb.Server("http://115.146.95.134:5984/")
@@ -41,25 +42,31 @@ print(thisSuburb)
 
 #Tweepy Code
 #consumer key, consumer secret, access token, access secret.
-Haaris_consumer_key = "E50fbKWMtI5X914kL4kgfURvR"
-Haaris_consumer_secret = "CLWbyVUb6b8fIMlodcpgH2jsl7Xal2qVOwGRjtYTYyVRKQTN90"
-Haaris_access_token = "1301016800-qi6ql98SLPDHeNYPlw6jvhge0QVElGjoyffBeAH"
-Haaris_access_token_secret = "C6tQsacmOfcTPB8uOIor24u1ChUwuPyOPohhYkUzaSRDu"
 
-Consumer_Key_Umair= "HnXTz4v9QCtjWvn7Tpb55SmOz"
-Consumer_Secret_Umair= "xCd7VIrsQPrCCg1wsPrxNEvSfmUCSuI7HfTdwtthwcBmo1d4W2"
-Access_Token_Umair= "62274863-7eVe1DtSb20jVf7bNLjO5RwlJRqRK0cjAmVRlVfgE"
-Access_Token_Secret_Umair = "FbOD05N6TK6wm6x4yGYXs923fX9xnzHUWoiFpkQ4bvNXc"
-
-Consumer_key_Kriti= "zOSTodo9yO17cv0pBU9MbJmQ9"
-Consumer_Secret_Kriti= "8cYLBe9EDc9oNVkXbuLiE3nx6fcZhhfqCaMbwx5yHnqXawadqK"
-Access_Token_Kriti= "949101970945490944-ytBXszR6zGY2xlrOmAEvOg3xGWeFhzs"
-Access_Token_Secret_Kriti= "hXeSM9T2NXta3Q37tRFbeqxJu5iR5HlbfHjCIgtWDnLQf"
-
-Consumer_Key_Sergei = "Vb0cwOkSk6q5tfSfX04h9U23p"
-Consumer_Secret_Sergei = "81aM2v0eZhJaA1ksFDicqf0piOidgShokCJudSWlKYVC5BCnI8"
-Access_Token_Sergei = "987288793374900224-MlYHf4qwA7K3NfhnCEcLT3o3UeNJPLM"
-Access_Token_Secret_Sergei = "CGXGboiACeSWPV4PRIXdnHskWAZJSv5d0zW6pwZQsH8zm"
+if(creds==1):
+	#Haris
+	consumer_key = "E50fbKWMtI5X914kL4kgfURvR"
+	consumer_secret = "CLWbyVUb6b8fIMlodcpgH2jsl7Xal2qVOwGRjtYTYyVRKQTN90"
+	access_token = "1301016800-qi6ql98SLPDHeNYPlw6jvhge0QVElGjoyffBeAH"
+	access_token_secret = "C6tQsacmOfcTPB8uOIor24u1ChUwuPyOPohhYkUzaSRDu"
+elif(creds==2):
+	#Umair
+	consumer_key= "HnXTz4v9QCtjWvn7Tpb55SmOz"
+	consumer_secret= "xCd7VIrsQPrCCg1wsPrxNEvSfmUCSuI7HfTdwtthwcBmo1d4W2"
+	access_token= "62274863-7eVe1DtSb20jVf7bNLjO5RwlJRqRK0cjAmVRlVfgE"
+	access_token_secret = "FbOD05N6TK6wm6x4yGYXs923fX9xnzHUWoiFpkQ4bvNXc"
+elif(creds==3):
+	#Krits
+	consumer_key= "zOSTodo9yO17cv0pBU9MbJmQ9"
+	consumer_secret= "8cYLBe9EDc9oNVkXbuLiE3nx6fcZhhfqCaMbwx5yHnqXawadqK"
+	access_token= "949101970945490944-ytBXszR6zGY2xlrOmAEvOg3xGWeFhzs"
+	access_token_secret= "hXeSM9T2NXta3Q37tRFbeqxJu5iR5HlbfHjCIgtWDnLQf"
+elif(creds==4):
+	#Sergey
+	consumer_key = "Vb0cwOkSk6q5tfSfX04h9U23p"
+	consumer_secret = "81aM2v0eZhJaA1ksFDicqf0piOidgShokCJudSWlKYVC5BCnI8"
+	access_token = "987288793374900224-MlYHf4qwA7K3NfhnCEcLT3o3UeNJPLM"
+	access_token_secret = "CGXGboiACeSWPV4PRIXdnHskWAZJSv5d0zW6pwZQsH8zm"
 
 tweetFile = open('screen3.json', 'a+', encoding='utf8')
 tweetFile.write("[")
@@ -228,8 +235,8 @@ class listener(StreamListener):
     def on_error(self, status):
         print(status)
 
-auth = OAuthHandler(Consumer_Key_Sergei, Consumer_Secret_Sergei)
-auth.set_access_token(Access_Token_Sergei, Access_Token_Secret_Sergei)
+auth = OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
 print("1-AuthAcquired")
 #auth2 = OAuthHandler(Consumer_Key_Sergei, Consumer_Secret_Sergei)
 #auth2.set_access_token(Access_Token_Sergei, Access_Token_Secret_Sergei)
@@ -237,6 +244,11 @@ api = tweepy.API(auth, wait_on_rate_limit=True)
 
 twitterStream = Stream(auth, listener())
 twitterStream.filter(locations=[144.5937, -38.4339, 145.5125, -37.5113])  # Just Melbourne Australia gridbox
+#twitterStream.filter(locations=[144.5937, -38.4339, 145.0531,-37.9726])#Quadrant1
+#twitterStream.filter(locations=[144.5937,-37.9726, 145.0531,-37.5113])#Quadrant2
+#twitterStream.filter(locations=[145.0531,-38.4339, 145.5125,-37.9726])#Quadrant3
+#twitterStream.filter(locations=[145.0531,-37.9726, 145.5125, -37.5113])#Quadrant4
+
 #twitterStream.filter(track=[
 #    "Anniversary",
 #        "Anniversaries",
