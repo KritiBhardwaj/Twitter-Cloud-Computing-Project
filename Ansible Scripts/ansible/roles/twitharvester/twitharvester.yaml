@@ -1,0 +1,6 @@
+---
+ - hosts: harvesters
+   become: yes
+   become_user: root
+   roles:
+    - twitharvester
