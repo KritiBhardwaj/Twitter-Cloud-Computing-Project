@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+//Read data from DB to the myServer
+  $("#readDataFromDB").click(function() {
+    $.ajax({
+      type: "GET",
+      url: "http://localhost:3000/readDataFromDB",
+
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(res) {
+        //Show status
+        console.log(res);
+        showStatus(res.status, '#readDataFromDBLabel');
+      },
+      error: function() {
+        //Show status
+        console.log(res);
+        showStatus(res.status, '#readDataFromDBLabel');
+      }
+    });
+  });
+</body>
+</html>
+
+
