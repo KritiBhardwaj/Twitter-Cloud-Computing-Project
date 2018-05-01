@@ -1,0 +1,25 @@
+1) To install Ansible (locally) run the following commands:
+
+sudo apt-add-repository -y ppa:ansible/ansible
+sudo apt-get update
+sudo apt-get install -y ansible
+
+2) Go into the "hosts" file in etc/ansible/hosts and add target hosts.
+You can specify the range, give group label or even manage inventory dynamically 
+through OpenStack (*to be implemented*):
+
+[harvesters]
+127.0.0.1
+
+3) Run this command to check your connection:
+
+ansible --private-key=/.ssh/sergeykey.pem -i ./hosts harvesters -m ping -u ubuntu -b
+
+Here, we first specify the location of the private key, then the location of the
+hosts file, then issue the "ping" command, then specify the username to be used in
+the SSH connection and finally request to be sudo user using -b
+
+4) Run this command to launch the master playbook:
+
+ansible-playbook -i ./hosts ./twitharvester.yaml --private-key=/.ssh/se
+rgeykey.pem -u ubuntu

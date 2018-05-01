@@ -1,0 +1,9 @@
+---
+# Tasks for the instance_launcher
+
+ - name: Write the new instances host keys to the known_hosts file
+   shell: ssh-keyscan -H "{{ item }}" >> ~/.ssh/known_hosts
+   loop: "{{ groups['all'] }}"
+   
+ # - name: Launch NeCTAR Instances
+   # shell: python roles/instance_launcher/files/launch_instances.py 2

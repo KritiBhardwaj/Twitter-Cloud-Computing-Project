@@ -12,7 +12,8 @@ system_image = 'ami-190a1773'
 
 # Establishes connection with NeCTAR
 print("Connecting to NeCTAR and launching instances...")
-reservation = ec2_conn.run_instances('ami-190a1773',
+reservation = ec2_conn.run_instances(
+	system_image,
 	min_count=num_of_instances,
 	max_count=num_of_instances,
 	key_name='sergeykey',

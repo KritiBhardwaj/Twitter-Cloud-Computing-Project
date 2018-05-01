@@ -1,0 +1,15 @@
+---
+# Tasks for the harvester_launcher
+   
+ # - name: Fiddle with NGINX
+   # apt: 
+      # name: "{{ item }}"
+      # state: latest
+      # update_cache: yes
+   # loop:
+    # - nginx
+    # - nginx-common
+    # - nginx-core
+
+ - name: Say Hello
+   script: hellobobby.sh
