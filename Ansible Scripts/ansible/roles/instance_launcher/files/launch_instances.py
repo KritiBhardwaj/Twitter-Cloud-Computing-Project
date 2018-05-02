@@ -45,5 +45,5 @@ for instance in instances:
 file.close()
 
 # Waits to avoid "Connection refused" errors in Ansible
-print("Waiting to finalises instances' network configuration")
+print("Waiting to finalise instances' network configuration...")
 time.sleep(60)

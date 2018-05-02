@@ -3,11 +3,12 @@
 
  - name: Launch NeCTAR Instances
    shell: python roles/instance_launcher/files/launch_instances.py 2
-   
- - name: Refresh inventory
+   register: output
+
+ - name: Refresh Inventory
    meta: refresh_inventory
 
- - name: Write the new instances host keys to the known_hosts file
+ - name: Add New Instances To "known_hosts"
    shell: ssh-keyscan -H "{{ item }}" >> ~/.ssh/known_hosts
    loop: "{{ groups['all'] }}"
    
