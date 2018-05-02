@@ -1,4 +1,3 @@
 [harvesters]
-115.146.95.115
-115.146.95.53
-
+115.146.92.33 harvester_number=1
+115.146.95.127 harvester_number=4

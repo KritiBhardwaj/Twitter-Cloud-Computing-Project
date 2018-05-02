@@ -18,5 +18,5 @@
     
 
  - name: Say Hello
-   shell: "python /etc/hellobobby.py"
+   shell: python /etc/hellobobby.py "{{harvester_number}}"
  
