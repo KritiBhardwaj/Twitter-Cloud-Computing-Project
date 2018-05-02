@@ -11,5 +11,12 @@
     # - nginx-common
     # - nginx-core
 
+ - name: Copy the scripts
+   copy:
+     src: hellobobby.py
+     dest: /etc/hellobobby.py
+    
+
  - name: Say Hello
-   script: hellobobby.sh
+   shell: "python /etc/hellobobby.py"
+ 
