@@ -1,0 +1,61 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <title> Twitter Analysis</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/styles.css" />
+</head>
+
+<body>
+	<div>
+		<h1>
+			<img src="assets/larrybird.jpg" alt="Twitter Logo">
+			#TwitterDataAnalysis
+		</h1>
+	</div>
+	<div class="maincontainer">
+		<div class="subContainerA">
+			<div>
+				<ul class = "TabMenu" id="tab">
+					<li id="Map1"> Map1 </li>
+					<li id="Chart2"> Chart2 </li>
+					<li id="Chart3"> Chart3 </li>
+					<li id="Chart4"> Chart4 </li>
+					<li> Chart5 </li>
+					<li> Chart6 </li>
+				</ul>
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 col-md-12">
+						<div id="container1" class="wrapper"></div>
+					</div>
+					<div class="col-sm-6 col-md-12">
+						<div id="container2" style="display:none;" class="wrapper"></div>
+					</div>
+					<div class="col-sm-6 col-md-12">
+						<div id="container3" style="display:none;" class="wrapper"></div>
+					</div>
+					<div class="col-sm-6 col-md-12">
+						<div id="container4" style="display:none;" class="wrapper"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="subContainerB">
+			RIGHT CONTAINER
+		</div>
+	</div>
+	<!--Scripts-->
+	<script src="js/myscripts.js"></script>
+	<script src="js/charts.js"></script>
+</body>
+</html>
