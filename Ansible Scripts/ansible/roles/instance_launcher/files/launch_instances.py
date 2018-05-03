@@ -1,5 +1,6 @@
 import sys
 import time
+import random
 from nectar_connect import ec2_conn
 
 # specify...
@@ -37,8 +38,12 @@ print("Waiting till the instances are ready...")
 for instance in instances:
 	while (instance.update() != "running"):
 		time.sleep(1)
-	file.write("{}\n".format(instance.private_ip_address))
+	file.write("{}\n"
+		.format(instance.private_ip_address + " harvester_number=" + str(random.randrange(1,5))))
 	print("The instance {} is ready.".format(instance.id))
 
 file.close()
-	
+
+# Waits to avoid "Connection refused" errors in Ansible
+print("Waiting to finalise instances' network configuration...")
+time.sleep(60)

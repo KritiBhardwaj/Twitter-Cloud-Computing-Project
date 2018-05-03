@@ -11,12 +11,12 @@
     # - nginx-common
     # - nginx-core
 
- - name: Copy the scripts
+ - name: Transfer Scripts To Remote
    copy:
-     src: hellobobby.py
-     dest: /etc/hellobobby.py
+     src: twitharvester.py
+     dest: /etc/twitharvester.py
     
 
- - name: Say Hello
-   shell: "python /etc/hellobobby.py"
+ - name: Run The Harvester Scripts
+   shell: python /etc/twitharvester.py "{{harvester_number}}"
  
