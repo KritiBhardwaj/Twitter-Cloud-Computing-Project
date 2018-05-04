@@ -1,15 +1,23 @@
 ---
 # Tasks for the harvester_launcher
-   
- # - name: Fiddle with NGINX
-   # apt: 
-      # name: "{{ item }}"
-      # state: latest
-      # update_cache: yes
-   # loop:
-    # - nginx
-    # - nginx-common
-    # - nginx-core
+    
+ - name: Install "python-pip3"
+   apt:
+     name: python3-pip
+     state: latest
+     update_cache: yes
+     
+ - name: Install Required Packages
+   pip: 
+     name: "{{ item }}"
+     state: latest
+     
+   loop:
+     - shapely
+     - textblob
+     - tweepy
+     - tweet-preprocessor
+     - couchdb
 
  - name: Transfer Scripts To Remote
    copy:
@@ -19,4 +27,8 @@
 
  - name: Run The Harvester Scripts
    shell: python /etc/twitharvester.py "{{harvester_number}}"
+   register: output
+ 
+ - debug:
+     var: output.stdout_lines
  

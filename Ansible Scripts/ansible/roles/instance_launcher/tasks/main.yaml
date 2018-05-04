@@ -2,8 +2,11 @@
 # Tasks for the instance_launcher
 
  - name: Launch NeCTAR Instances
-   shell: python roles/instance_launcher/files/launch_instances.py 2
+   shell: python roles/instance_launcher/files/launch_instances.py "{{ numinstances }}"
    register: output
+ 
+ - debug:
+     var: output.stdout_lines
 
  - name: Refresh Inventory
    meta: refresh_inventory

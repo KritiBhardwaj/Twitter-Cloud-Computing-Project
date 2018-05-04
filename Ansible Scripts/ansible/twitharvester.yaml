@@ -2,5 +2,5 @@
 # This master playbook launches other playbooks in a particular order
 
  - import_playbook: instance_launcher.yaml
- # - import_playbook: harvester_launcher.yaml
+ - import_playbook: harvester_launcher.yaml
    

@@ -39,7 +39,7 @@ for instance in instances:
 	while (instance.update() != "running"):
 		time.sleep(1)
 	file.write("{}\n"
-		.format(instance.private_ip_address + " harvester_number=" + str(random.randrange(1,5))))
+		.format(instance.private_ip_address + " harvester_number=" + str(random.randrange(1,5)) + " ansible_python_interpreter=/usr/bin/python3"))
 	print("The instance {} is ready.".format(instance.id))
 
 file.close()
