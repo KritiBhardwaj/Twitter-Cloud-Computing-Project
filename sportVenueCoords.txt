@@ -1,0 +1,9 @@
+AAMI PARK: -37.824135,144.986857
+Melbourne Cricket Ground: -37.8199669,144.9812606
+Etihad Stadium: -37.8165647,144.9475055
+Hisense Arena: -37.822808,144.9818382
+Flemington Racecourse: -37.79097,144.9097023
+Rod Laver Arena: -37.8216202,144.9763477
+Olympic Park Stadium: -37.8216198,144.9697816
+Princes Park: -37.7936202,144.8717181
+Melbourne Uni Sport Centre: -37.796212,144.9600513
