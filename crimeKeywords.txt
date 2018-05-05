@@ -7,7 +7,7 @@ assault
 robbery
 homicide
 wounding
-domestic violence
+domesticviolence
 mugging
 murder
 murdered
@@ -16,12 +16,17 @@ manslaughter
 infanticide
 sexual assault
 rape
-drink + driving
+drinkdriving
 drug
 driving
 GBH
-possession + weapons
+weapons
+posessionweapons
 harassment
+harass
+rape
+assualt
+stalking
 firearm
 stalking
 theft
