@@ -1,8 +1,10 @@
 import couchdb
 import os
 import io
+import re
 import json
 
+path = 'harvest_file_data.json'
 db = None
 crimekeyWords=[]
 alcoholkeyWords=[]
@@ -56,25 +58,28 @@ def checkIfIDEXists(tweetid):
         return "false"
 
 def checkRawTweetMessage(messageProperties,rawt):
-    print("reachedSub1")
     matchedCheck = False;
-    print(rawt)
     rawTweetSplit = str(rawt).split(' ')
-    print("reachedSub2")
     for elem in crimekeyWords:
         for rawSplit in rawTweetSplit:
-            if str(elem).lower() == rawSplit.lower():
+            rawSplit = rawSplit.lower()
+            rawSplit = re.sub(r'[^A-Za-z0-9]+', r'', rawSplit)
+            if str(elem).lower() == rawSplit:
                 messageProperties['isCrime'] += 1
                 matchedCheck = True
                 break
     for elem in alcoholkeyWords:
         for rawSplit in rawTweetSplit:
+            rawSplit = rawSplit.lower()
+            rawSplit = re.sub(r'[^A-Za-z0-9]+', r'', rawSplit)
             if str(elem).lower()== rawSplit.lower():
                 messageProperties['isAlcohol'] += 1
                 matchedCheck = True
                 break
     for elem in sportskeyWords:
         for rawSplit in rawTweetSplit:
+            rawSplit = rawSplit.lower()
+            rawSplit = re.sub(r'[^A-Za-z0-9]+', r'', rawSplit)
             if str(elem).lower()== rawSplit.lower():
                 messageProperties['isSports'] += 1
                 matchedCheck = True
@@ -121,35 +126,21 @@ def processTweet(line):
 
     tweet_id = jsonDoc['id_tweet']
     tweet_id = str(tweet_id)+'t'
-    print("Im here")
     rawtweet = jsonDoc['rawtweet']
-    print("Reached here")
     writeToFileDict['id_tweet'] = tweet_id
     writeToFileDict['rawtweet'] = rawtweet
-    print("Reached here 2")
 
-    checkRawTweetMessage(messageProperties, rawtweet)
-    print("Reached here 3")
+    checkRawTweetMessage(messageProperties, rawtweet.encode('ascii','ignore'))
     writeToFileDict['tweet'] = jsonDoc['tweet']
-    print("Reached here 3")
     writeToFileDict['raw'] = jsonDoc['raw']
-    print("Reached here 4")
     writeToFileDict['screen_name'] = jsonDoc['screen_name']
-    print("Reached here 5")
     writeToFileDict['lat'] = jsonDoc['lat']
-    print("Reached here 6")
     writeToFileDict['long'] = jsonDoc['long']
-    print("Reached here 7")
     writeToFileDict['sentiment'] = jsonDoc['sentiment']
-    print("Reached here 8")
     writeToFileDict['suburb'] = jsonDoc['suburb']
-    print("Reached here 9")
     writeToFileDict['crime'] = messageProperties['isCrime']
-    print("Reached here 10")
     writeToFileDict['sports'] = messageProperties['isSports']
-    print("Reached here 11")
     writeToFileDict['alcohol'] = messageProperties['isAlcohol']
-    print("Reached here 12")
 
     if (checkIfIDEXists(tweet_id) == "false"):
         try:
@@ -160,12 +151,19 @@ def processTweet(line):
     else:
         print("Duplicate id: ", tweet_id)
 
-if __name__ == "__main__":
-    path = 'harvest_final_data_subset.json'
+def Initialize(path):
+    global db
     keyWordpath = 'keywords/'
-
     keywordsToFile(keyWordpath)
     couchsrv = "http://115.146.95.134:5984/"
-    dbname = "harvest_out"
-    db = setupDB(couchsrv,dbname)
-    readfile(path)
+    dbname = "harvester"
+    db = setupDB(couchsrv, dbname)
+
+if __name__ == "__main__":
+    try:
+        Initialize(path)
+        readfile(path)
+    except couchdb.ServerError:
+        print("Server Error - Trying again")
+        Initialize(path)
+        readfile(path)
