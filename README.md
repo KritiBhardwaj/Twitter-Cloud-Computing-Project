@@ -1,2 +1,1 @@
-# TwitterProject
-Phase 1
+TwitAur Project gets in streaming data from twitter and compares with AURIN data
