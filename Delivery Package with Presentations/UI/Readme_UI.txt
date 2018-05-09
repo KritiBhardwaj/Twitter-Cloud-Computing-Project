@@ -1,1 +1,0 @@
-This the the package for UI folder. It should be put in the directory that apache server points to. Default is "/var/www/html/". PHP and Apache server needs to be installed on the application server for the UI to run. It can then be accessed externally via URL: "IP/twitaur"

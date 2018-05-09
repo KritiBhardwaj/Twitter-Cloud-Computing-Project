@@ -1,3 +1,0 @@
-[harvesters]
-115.146.95.242 harvester_id=i-1f62b81f longMin=144.5937 latMin=-38.4339 longMax=145.5125 latMax=-37.9726 instanceCount=1 ansible_python_interpreter=/usr/bin/python3
-115.146.95.211 harvester_id=i-3ae0938d longMin=144.5937 latMin=-37.9726 longMax=145.5125 latMax=-37.5113 instanceCount=2 ansible_python_interpreter=/usr/bin/python3

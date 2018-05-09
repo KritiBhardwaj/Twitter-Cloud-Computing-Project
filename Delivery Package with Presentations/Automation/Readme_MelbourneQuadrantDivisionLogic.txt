@@ -1,4 +1,0 @@
-This code divides melbourne's grid into n qudrants i.e. it takes in the number of harvesters as input and divides the entire grid by that number. It then produces n number of south-west and north-east coordinates. These are then assigned to each of the harvesters.
-This is to achieve parallelism in terms of processing.
-
-Note: This file only states the logic of dividing grid, the code has been embedded in "\Delivery Package\Automation\ansible\roles\instance_launcher\files\launch_instances.py" as a function named divideGridEvolved. It then writes these to the host file of ansible which resides at "Delivery Package\Automation\ansible\host" and passes respective min/max lat/long to each of the harvester as arguments.

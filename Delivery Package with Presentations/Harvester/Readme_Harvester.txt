@@ -1,1 +1,0 @@
-Note: The files in this folder are present in "\Delivery Package\Automation\ansible\roles\harvester_launcher\files", for the purpose of automation. These files get uploaded to each of the harvester which then run as instructed by the host file of ansible.
