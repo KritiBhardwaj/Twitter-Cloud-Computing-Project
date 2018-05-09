@@ -21,4 +21,4 @@ the SSH connection and finally request to be sudo user using -b
 
 4) Run this command to launch the master playbook:
 
-ansible-playbook -i ./hosts ./twitharvester.yaml --private-key=/.ssh/sergeykey.pem -u ubuntu --extra-vars "numinstances=2"
+ansible-playbook -i ./hosts ./twitharvester.yaml --private-key=/.ssh/cloudcc.pem -u ubuntu --extra-vars "numinstances=2"

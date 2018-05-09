@@ -1,0 +1,7 @@
+---
+# This playbook launches Twitter harvesters
+ - hosts: harvesters
+   become: yes
+   become_user: root
+   roles:
+     - harvester_launcher
