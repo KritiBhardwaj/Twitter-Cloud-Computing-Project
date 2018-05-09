@@ -1,0 +1,6 @@
+---
+# This playbook launches NeCTAR instances
+ - hosts: localhost
+   connection: local
+   roles:
+     - instance_launcher
